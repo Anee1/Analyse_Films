@@ -55,7 +55,7 @@ fig_compare_tags = px.bar(
     y="tag",
     color="Type",
     barmode="group",
-    title="Comparaison des Tags : Films bien notés vs mal notés",
+    title="Comparaison des Tags:Films bien notés_mal notés",
     labels={"count": "Nombre d’occurrences", "tag": "Tag"},
     height=500
 )

@@ -21,8 +21,6 @@ movies_by_year = load_parquet_data("movies_by_year.parquet")
 top_movies = load_parquet_data("top_movies_by_ratings.parquet")
 ratings_df = load_parquet_data("ratings.parquet")
 
-
-
 # Graphique 1 : Top 10 genres par nombre de films
 fig_genre = px.bar(
     genre_df,
@@ -39,12 +37,12 @@ fig_genre.update_layout(
     height=350
 )
 
-# Graphique 2  : Distribution des notes attribuées par les utilisateurs
+# Graphique 2 (nouveau) : Distribution des notes attribuées par les utilisateurs
 fig_ratings_dist = px.histogram(
     ratings_df,
     x="rating",
     nbins=10,
-    title="Distribution des notes attribuées",
+    title="Distribution des notes attribuées par les utilisateurs",
     labels={"rating": "Note", "count": "Nombre d’évaluations"},
     color_discrete_sequence=['#636EFA']
 )
@@ -53,42 +51,26 @@ fig_ratings_dist.update_layout(
     height=400
 )
 
-# Graphique 3 : Camembert des genres
-fig_genre_pie = px.pie(
-    genre_df,
-    names="genre",
-    values="count",
-    title="Répartition des films par genre",
-    color_discrete_sequence=px.colors.sequential.Viridis
-)
-fig_genre_pie.update_traces(textposition='inside', textinfo='percent+label')
-fig_genre_pie.update_layout(height=500)
-
-
 # Graphique 3 : Top 10 utilisateurs par nombre d’évaluations
-#atings_per_user = ratings_df['userId'].value_counts().reset_index()
-#ratings_per_user.columns = ['userId', 'rating_count']
-#top_users = ratings_per_user.head(10)
-#fig_users = px.bar(
-#    top_users,
-#    x="rating_count",
-#    y=top_users["userId"].astype(str),
-#    orientation="h",
-#    title="Top 10 des utilisateurs par nombre d’évaluations",
-#    labels={"userId": "Utilisateur", "rating_count": "Nombre d’évaluations"},
-#    color="rating_count",
-#    color_continuous_scale="viridis"
-#)
-#fig_users.update_layout(
-#   yaxis={'categoryorder': 'total ascending'},
-#   height=350
-#)
-#st.write("### Données brutes - Top utilisateurs")
-#st.dataframe(top_users)
-
-
-
-
+ratings_per_user = ratings_df['userId'].value_counts().reset_index()
+ratings_per_user.columns = ['userId', 'rating_count']
+top_users = ratings_per_user.head(10)
+fig_users = px.bar(
+    top_users,
+    x="rating_count",
+    y=top_users["userId"].astype(str),
+    orientation="h",
+    title="Top 10 des utilisateurs par nombre d’évaluations",
+    labels={"userId": "Utilisateur", "rating_count": "Nombre d’évaluations"},
+    color="rating_count",
+    color_continuous_scale="viridis"
+)
+fig_users.update_layout(
+   yaxis={'categoryorder': 'total ascending'},
+   height=350
+)
+st.write("### Données brutes - Top utilisateurs")
+st.dataframe(top_users)
 
 # Graphique 4 : Top 20 des films par nombre d’évaluations
 fig_top_movies = px.bar(
@@ -121,15 +103,14 @@ fig_by_year.update_layout(
 )
 
 # Mise en page Streamlit
-col1, col2, col3 = st.columns([1,0.05, 1])
+col1, col2 = st.columns([1, 2])
 
 with col1:
-    st.plotly_chart(fig_genre_pie, use_container_width=True)
+    st.plotly_chart(fig_genre, use_container_width=True)
     st.plotly_chart(fig_ratings_dist, use_container_width=True)
-    #st.plotly_chart(fig_genre, use_container_width=True)
+    st.plotly_chart(fig_users, use_container_width=True)
+
 with col2:
-    st.markdown("<div style='height:100%; border-left:2px solid #ccc'></div>", unsafe_allow_html=True)
-with col3:
     st.plotly_chart(fig_top_movies, use_container_width=True)
 
 st.divider()
