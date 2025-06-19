@@ -57,7 +57,7 @@ st.write(" ")
 # Titre
 st.markdown("# **Phase 1 : Conception de l’architecture et développement de l’API en Python**")
 # Afficher l'image séparément
-st.image("architecture.png", use_container_width=True)
+st.image("C:/Users/marcel.anee/Desktop/Analyse_Films/App_streamlit/architecture.png", use_container_width=True)
 
 st.markdown(
         """
