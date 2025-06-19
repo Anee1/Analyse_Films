@@ -1,4 +1,6 @@
 import streamlit as st
+from pathlib import Path
+from PIL import Image
 
 # Interface utilisateur avec Streamlit
 st.set_page_config(
@@ -57,7 +59,9 @@ st.write(" ")
 # Titre
 st.markdown("# **Phase 1 : Conception de l’architecture et développement de l’API en Python**")
 # Afficher l'image séparément
-st.image("C:/Users/marcel.anee/Desktop/Analyse_Films/App_streamlit/architecture.png", use_container_width=True)
+
+
+st.image("https://github.com/Anee1/Analyse_Films/blob/main/App_streamlit/architecture.png?raw=true", use_container_width=True)
 
 st.markdown(
         """
@@ -78,7 +82,7 @@ st.write(" ")
 # Titre
 st.markdown("# **Phase 2 : Analyse exploratoire et visualisation statistique**")
 # Afficher l'image séparément
-st.image("architecturephase.png", use_container_width=True)
+st.image("https://github.com/Anee1/Analyse_Films/blob/main/App_streamlit/architecturephase.png?raw=true", use_container_width=True)
 
 st.markdown(
         """
